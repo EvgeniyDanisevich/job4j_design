@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.is;
 
 import org.junit.Test;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class SimpleArrayTest {
@@ -51,20 +52,29 @@ public class SimpleArrayTest {
         SimpleArray<Integer> simpleArray = new SimpleArray<>(2);
         simpleArray.add(1);
         simpleArray.add(2);
-        assertThat(simpleArray.iterator().hasNext(), is(true));
-        assertThat(simpleArray.iterator().next(), is(1));
-        assertThat(simpleArray.iterator().hasNext(), is(true));
-        assertThat(simpleArray.iterator().next(), is(2));
-        assertThat(simpleArray.iterator().hasNext(), is(false));
+        Iterator<Integer> iterator = simpleArray.iterator();
+        assertThat(iterator.hasNext(), is(true));
+        assertThat(iterator.next(), is(1));
+        assertThat(iterator.hasNext(), is(true));
+        assertThat(iterator.next(), is(2));
+        assertThat(iterator.hasNext(), is(false));
     }
 
     @Test
-    public void whenNextNull() {
+    public void whenAddAndAdd() {
         SimpleArray<Integer> simpleArray = new SimpleArray<>(2);
         simpleArray.add(1);
-        assertThat(simpleArray.iterator().hasNext(), is(true));
-        assertThat(simpleArray.iterator().next(), is(1));
-        assertThat(simpleArray.iterator().hasNext(), is(false));
+        Iterator<Integer> iterator = simpleArray.iterator();
+        assertThat(iterator.hasNext(), is(true));
+        assertThat(iterator.next(), is(1));
+        assertThat(iterator.hasNext(), is(false));
+        simpleArray.add(1);
+        iterator = simpleArray.iterator();
+        assertThat(iterator.hasNext(), is(true));
+        assertThat(iterator.next(), is(1));
+        assertThat(iterator.hasNext(), is(true));
+        assertThat(iterator.next(), is(1));
+        assertThat(iterator.hasNext(), is(false));
     }
 
     @Test(expected = NoSuchElementException.class)

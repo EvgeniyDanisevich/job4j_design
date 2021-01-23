@@ -7,7 +7,7 @@ import java.util.Objects;
 public class SimpleArray<T> implements Iterable<T> {
     private int capacity = 0;
     private T[] array;
-    private int iterationValue = 0;
+
 
     public SimpleArray(int cells) {
         array = (T[]) new Object[cells];
@@ -15,7 +15,10 @@ public class SimpleArray<T> implements Iterable<T> {
 
     public boolean add(T model) {
         if (capacity < array.length) {
-            array[capacity++] = model;
+            array[capacity] = model;
+            if (model != null) {
+                capacity++;
+            }
             return true;
         }
         return false;
@@ -40,13 +43,12 @@ public class SimpleArray<T> implements Iterable<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<>() {
+        class SimpleArrayIterator implements Iterator<T> {
+            int iterationValue = 0;
+
             @Override
             public boolean hasNext() {
-                if (iterationValue >= array.length) {
-                    return false;
-                }
-                return array[iterationValue] != null;
+                return iterationValue < capacity;
             }
 
             @Override
@@ -56,6 +58,7 @@ public class SimpleArray<T> implements Iterable<T> {
                 }
                 return array[iterationValue++];
             }
-        };
+        }
+        return new SimpleArrayIterator();
     }
 }
