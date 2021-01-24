@@ -8,7 +8,6 @@ public class SimpleArray<T> implements Iterable<T> {
     private int capacity = 0;
     private T[] array;
 
-
     public SimpleArray(int cells) {
         array = (T[]) new Object[cells];
     }
@@ -44,7 +43,7 @@ public class SimpleArray<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         class SimpleArrayIterator implements Iterator<T> {
-            int iterationValue = 0;
+            private int iterationValue = 0;
 
             @Override
             public boolean hasNext() {
@@ -59,6 +58,7 @@ public class SimpleArray<T> implements Iterable<T> {
                 return array[iterationValue++];
             }
         }
+
         return new SimpleArrayIterator();
     }
 }

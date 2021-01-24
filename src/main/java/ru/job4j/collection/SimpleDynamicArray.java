@@ -50,8 +50,8 @@ public class SimpleDynamicArray<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         class SimpleDynamicArrayIterator implements Iterator<T> {
-            int iterationValue = 0;
-            final int expectedModCount = modCount;
+            private int iterationValue = 0;
+            private final int expectedModCount = modCount;
 
             @Override
             public boolean hasNext() {
@@ -72,6 +72,7 @@ public class SimpleDynamicArray<T> implements Iterable<T> {
                 return (T) container[iterationValue++];
             }
         }
+
         return new SimpleDynamicArrayIterator();
     }
 }
