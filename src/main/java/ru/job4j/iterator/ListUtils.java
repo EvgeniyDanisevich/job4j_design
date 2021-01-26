@@ -32,16 +32,13 @@ public class ListUtils {
 
     public static <T> List<T> removeIf(List<T> list, Predicate<T> filter) {
         ListIterator<T> i = list.listIterator();
-        List<T> changedList = new ArrayList<>();
         while (i.hasNext()) {
             T t = i.next();
             if (filter.test(t)) {
                 i.remove();
-                continue;
             }
-            changedList.add(t);
         }
-        return changedList;
+        return list;
     }
 
     public static <T> List<T> replaceIf(List<T> list, Predicate<T> filter, T value) {
@@ -56,8 +53,12 @@ public class ListUtils {
     }
 
     public static <T> List<T> removeAll(List<T> list, List<T> elements) {
-        for (T t : elements) {
-            list.remove(t);
+        ListIterator<T> i = list.listIterator();
+        while (i.hasNext()) {
+            T t = i.next();
+            if (elements.contains(t)) {
+                i.remove();
+            }
         }
         return list;
     }
