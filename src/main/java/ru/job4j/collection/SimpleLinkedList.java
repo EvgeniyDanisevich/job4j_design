@@ -11,7 +11,6 @@ public class SimpleLinkedList<E> implements Iterable<E> {
 
     private static class Node<E> {
         private final E item;
-        private int nodeIndex;
         private Node<E> next;
         private Node<E> prev;
 
@@ -22,7 +21,7 @@ public class SimpleLinkedList<E> implements Iterable<E> {
         }
     }
 
-    public void addFirst(E value) {
+    private void addFirst(E value) {
         if (first == null) {
             first = new Node<>(null, value, null);
             modCount++;
@@ -41,48 +40,34 @@ public class SimpleLinkedList<E> implements Iterable<E> {
         last.next = node;
         node.prev = last;
         last = node;
-        node.nodeIndex = index;
         modCount++;
         size++;
         index++;
     }
 
-    public E getFirst(int index) {
-        Objects.checkIndex(index, size);
-        if (first.nodeIndex == index) {
-            return first.item;
-        }
-        return null;
-    }
-
     public E get(int index) {
         Objects.checkIndex(index, size);
-        if (index == 0) {
-            return getFirst(index);
-        }
-        Node<E> n = first;
+        Node<E> current = first;
         for (int i = 0; i < index; i++) {
-            n = n.next;
-            if (n.nodeIndex == index) {
-                return n.item;
-            }
-            get(n.nodeIndex);
+            current = current.next;
         }
-        return null;
+        return current.item;
     }
 
     @Override
     public Iterator<E> iterator() {
         class SimpleLinkedListIterator implements Iterator<E> {
-            private int iterationValue = 0;
             private final int expectedModCount = modCount;
+            private Node<E> current = first;
+            private Node<E> currentNext = first;
 
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return iterationValue < size;
+                current = currentNext;
+                return current != null;
             }
 
             @Override
@@ -93,7 +78,8 @@ public class SimpleLinkedList<E> implements Iterable<E> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return get(iterationValue++);
+                currentNext = current.next;
+                return current.item;
             }
         }
 
