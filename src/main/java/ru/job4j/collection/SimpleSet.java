@@ -35,7 +35,10 @@ public class SimpleSet<E> implements Iterable<E> {
     }
 
     public void remove(E e) {
-        container.remove(getIndex(e));
+        int index = getIndex(e);
+        if (index >= 0) {
+            container.remove(index);
+        }
     }
 
     @Override
