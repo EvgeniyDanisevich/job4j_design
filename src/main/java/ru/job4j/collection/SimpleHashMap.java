@@ -23,6 +23,10 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
             return value;
         }
 
+        public K getKey() {
+            return key;
+        }
+
         @Override
         public String toString() {
             return "Node{"
@@ -36,18 +40,23 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
         return (key == null) ? 0 : (key.hashCode() % capacity);
     }
 
+    private Object[] increase(Object[] table) {
+        capacity = capacity * 2;
+        Object[] tableNew = new Object[capacity];
+        for (Object object : table) {
+            Node<K, V> temp = (Node<K, V>) object;
+            if (temp != null) {
+                tableNew[(tableNew.length - 1) & temp.hash] = temp;
+            }
+        }
+        table = tableNew;
+        modCount++;
+        return table;
+    }
+
     public boolean insert(K key, V value) {
         if ((float) (count / capacity) >= 0.75) {
-            capacity = capacity * 2;
-            Object[] tableNew = new Object[capacity];
-            for (Object object : table) {
-                Node<K, V> temp = (Node<K, V>) object;
-                if (temp != null) {
-                    tableNew[(tableNew.length - 1) & temp.hash] = temp;
-                }
-            }
-            table = tableNew;
-            modCount++;
+            table = increase(table);
         }
         int index = (table.length - 1) & hash(key);
         if (table[index] == null) {
@@ -61,15 +70,21 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
 
     public V get(K key) {
         Node<K, V> node = (Node<K, V>) table[(table.length - 1) & hash(key)];
-        return node.getValue();
+        if (node.getKey().equals(key)) {
+            return node.getValue();
+        }
+        return null;
     }
 
     public boolean delete(K key) {
         int index = (table.length - 1) & hash(key);
-        if (table[index] != null) {
-            table[index] = null;
-            count--;
-            return true;
+        Node<K, V> node = (Node<K, V>) table[index];
+        if (node.getKey().equals(key)) {
+            if (table[index] != null) {
+                table[index] = null;
+                count--;
+                return true;
+            }
         }
         return false;
     }
