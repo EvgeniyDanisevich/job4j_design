@@ -3,7 +3,6 @@ package ru.job4j.tree;
 import java.util.*;
 import java.util.function.Predicate;
 
-
 class Tree<E> implements SimpleTree<E> {
     private final Node<E> root;
 
