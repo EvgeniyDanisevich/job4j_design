@@ -70,7 +70,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
 
     public V get(K key) {
         Node<K, V> node = (Node<K, V>) table[(table.length - 1) & hash(key)];
-        if (node.getKey().equals(key)) {
+        if (node != null && node.getKey().equals(key)) {
             return node.getValue();
         }
         return null;
@@ -79,7 +79,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
     public boolean delete(K key) {
         int index = (table.length - 1) & hash(key);
         Node<K, V> node = (Node<K, V>) table[index];
-        if (node.getKey().equals(key)) {
+        if (node != null && node.getKey().equals(key)) {
             if (table[index] != null) {
                 table[index] = null;
                 count--;
