@@ -3,10 +3,10 @@ package ru.job4j.collection;
 import java.util.*;
 
 public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
+    private static final float LOAD_FACTOR = 0.75f;
     private int count = 0;
     private int capacity = 16;
     private int modCount = 0;
-    private static final float LOAD_FACTOR = 0.75f;
     private Object[] table = new Object[capacity];
 
     static class Node<K, V> {

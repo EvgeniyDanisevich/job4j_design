@@ -16,7 +16,8 @@ public class Analizy {
                     filteredLines.add(str);
                     flag = true;
                 }
-                if ((str.startsWith("200") || str.startsWith("300")) && (flag || !filteredLines.isEmpty())) {
+                if ((str.startsWith("200") || str.startsWith("300"))
+                        && (flag || !filteredLines.isEmpty())) {
                     filteredLines.add(str);
                     flag = false;
                 }
