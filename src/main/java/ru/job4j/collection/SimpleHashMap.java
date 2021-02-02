@@ -6,6 +6,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
     private int count = 0;
     private int capacity = 16;
     private int modCount = 0;
+    private static final float LOAD_FACTOR = 0.75f;
     private Object[] table = new Object[capacity];
 
     static class Node<K, V> {
@@ -41,24 +42,24 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
     }
 
     private Object[] increase(Object[] table) {
-        capacity = capacity * 2;
-        Object[] tableNew = new Object[capacity];
-        for (Object object : table) {
-            Node<K, V> temp = (Node<K, V>) object;
-            if (temp != null) {
-                tableNew[(tableNew.length - 1) & temp.hash] = temp;
+        if ((float) count / capacity >= LOAD_FACTOR) {
+            capacity = capacity * 2;
+            Object[] tableNew = new Object[capacity];
+            for (Object object : table) {
+                Node<K, V> temp = (Node<K, V>) object;
+                if (temp != null) {
+                    tableNew[hash(temp.getKey())] = temp;
+                }
             }
+            table = tableNew;
+            modCount++;
         }
-        table = tableNew;
-        modCount++;
         return table;
     }
 
     public boolean insert(K key, V value) {
-        if ((float) (count / capacity) >= 0.75) {
-            table = increase(table);
-        }
-        int index = (table.length - 1) & hash(key);
+        table = increase(table);
+        int index = hash(key);
         if (table[index] == null) {
             table[index] = new Node<>(hash(key), key, value);
             count++;
@@ -69,7 +70,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
     }
 
     public V get(K key) {
-        Node<K, V> node = (Node<K, V>) table[(table.length - 1) & hash(key)];
+        Node<K, V> node = (Node<K, V>) table[hash(key)];
         if (node != null && node.getKey().equals(key)) {
             return node.getValue();
         }
@@ -77,7 +78,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
     }
 
     public boolean delete(K key) {
-        int index = (table.length - 1) & hash(key);
+        int index = hash(key);
         Node<K, V> node = (Node<K, V>) table[index];
         if (node != null && node.getKey().equals(key)) {
             if (table[index] != null) {
