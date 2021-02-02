@@ -9,9 +9,10 @@ public class LogFilter {
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
             List<String> lines = new ArrayList<>();
             in.lines()
-                    .map(s -> s.split(" "))
-                    .filter(strings -> strings[strings.length - 2].equals("404"))
-                    .map(strings -> String.join(" ", strings))
+                    .filter(s -> s.contains("404"))
+//                    .map(s -> s.split(" "))
+//                    .filter(strings -> strings[strings.length - 2].equals("404"))
+//                    .map(strings -> String.join(" ", strings))
                     .forEach(lines::add);
             return lines;
         } catch (Exception e) {
