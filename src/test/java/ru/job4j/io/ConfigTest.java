@@ -34,4 +34,23 @@ public class ConfigTest {
         assertThat(config.value("hibernate.connection.password"),
                 is("password"));
     }
+
+    @Test
+    public void whenOnlyComment() {
+        String path = "data/with_comment.properties";
+        Config config = new Config(path);
+        config.load();
+        assertThat(
+                config.value("this"),
+                is("notAComment")
+        );
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void whenNoValue() {
+        String path = "data/illegal_format.properties";
+        Config config = new Config(path);
+        config.load();
+        config.value("name");
+    }
 }

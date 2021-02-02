@@ -17,8 +17,9 @@ public class Config {
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             read.lines()
-                    .filter(s -> s.contains("="))
+                    .filter(s -> !s.contains("#") && s.contains("="))
                     .map(s -> s.split("="))
+                    .filter(strings -> strings.length == 2)
                     .forEach(strings -> values.put(strings[0], strings[1]));
         } catch (Exception e) {
             e.printStackTrace();
@@ -26,6 +27,9 @@ public class Config {
     }
 
     public String value(String key) {
+        if (values.get(key) == null) {
+            throw new IllegalArgumentException();
+        }
         return values.get(key);
     }
 
