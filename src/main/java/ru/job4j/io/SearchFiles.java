@@ -8,7 +8,6 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
 
@@ -28,7 +27,9 @@ public class SearchFiles implements FileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        paths.add(file.toAbsolutePath());
+        if (predicate.test(file)) {
+            paths.add(file.toAbsolutePath());
+        }
         return CONTINUE;
     }
 
@@ -43,8 +44,6 @@ public class SearchFiles implements FileVisitor<Path> {
     }
 
     public List<Path> getPaths() {
-        return paths.stream()
-                .filter(predicate)
-                .collect(Collectors.toList());
+        return paths;
     }
 }
