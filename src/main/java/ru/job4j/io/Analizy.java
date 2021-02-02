@@ -1,25 +1,22 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Analizy {
     public void unavailable(String source, String target) {
-        List<String> lines = new ArrayList<>();
         List<String> filteredLines = new ArrayList<>();
         List<String> dates = new ArrayList<>();
         List<String> datesFormat = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new FileReader(source))) {
-            in.lines().forEach(lines::add);
             boolean flag = false;
-            for (String str : lines) {
+            String str;
+            while ((str = in.readLine()) != null) {
                 if ((str.startsWith("400") || str.startsWith("500")) && !flag) {
                     filteredLines.add(str);
                     flag = true;
                 }
-                if ((str.startsWith("200") || str.startsWith("300"))
-                        && (flag || !filteredLines.isEmpty())) {
+                if ((str.startsWith("200") || str.startsWith("300")) && (flag || !filteredLines.isEmpty())) {
                     filteredLines.add(str);
                     flag = false;
                 }
@@ -33,10 +30,10 @@ public class Analizy {
         try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
             for (int i = 0; i < dates.size(); i++) {
                 if (i % 2 == 0) {
-                    datesFormat.add(dates.get(i) + ";" + dates.get(i + 1) + System.lineSeparator());
+                    datesFormat.add(dates.get(i) + ";" + dates.get(i + 1));
                 }
             }
-            datesFormat.forEach(out::print);
+            datesFormat.forEach(out::println);
         } catch (Exception e) {
             e.printStackTrace();
         }
