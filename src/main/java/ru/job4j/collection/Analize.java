@@ -25,11 +25,7 @@ public class Analize {
             }
             mapPrevious.put(id, name);
         }
-        for (User user : current) {
-            if (mapPrevious.get(user.getId()) == null) {
-                info.added++;
-            }
-        }
+        info.added = mapCurrent.size() - (mapPrevious.size() - info.deleted);
         return info;
     }
 
