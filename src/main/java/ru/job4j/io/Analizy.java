@@ -29,10 +29,8 @@ public class Analizy {
             e.printStackTrace();
         }
         try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
-            for (int i = 0; i < dates.size(); i++) {
-                if (i % 2 == 0) {
-                    datesFormat.add(dates.get(i) + ";" + dates.get(i + 1));
-                }
+            for (int i = 0; i < dates.size(); i = i + 2) {
+                datesFormat.add(dates.get(i) + ";" + dates.get(i + 1));
             }
             datesFormat.forEach(out::println);
         } catch (Exception e) {
