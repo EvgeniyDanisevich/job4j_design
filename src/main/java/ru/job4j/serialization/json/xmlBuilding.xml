@@ -1,0 +1,12 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<building isNewBuliding="true" floor="1">
+    <address address="St.Petersburg"/>
+    <livingSpaces>
+        <livingSpace>50</livingSpace>
+        <livingSpace>60</livingSpace>
+        <livingSpace>70</livingSpace>
+    </livingSpaces>
+    <forExample>
+        <apartment number="2" livingSpace="60"/>
+    </forExample>
+</building>
