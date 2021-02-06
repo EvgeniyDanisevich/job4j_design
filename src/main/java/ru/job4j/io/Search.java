@@ -10,7 +10,8 @@ public class Search {
     public static void main(String[] args) throws IOException {
         if (args.length <= 1) {
             throw new IllegalArgumentException(
-                    "Root folder or extension is null. Usage java -jar search.jar ROOT_FOLDER extension"
+                    "Root folder or extension is null. "
+                            + "Usage java -jar search.jar ROOT_FOLDER extension"
             );
         }
         Path start = Paths.get(args[0]);
