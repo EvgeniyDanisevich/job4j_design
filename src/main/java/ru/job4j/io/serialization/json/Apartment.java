@@ -1,6 +1,4 @@
-package ru.job4j.serialization.json;
-
-import java.util.Objects;
+package ru.job4j.io.serialization.json;
 
 public class Apartment {
     private int number;
@@ -33,19 +31,5 @@ public class Apartment {
                 + "number=" + number
                 + ", livingSpace=" + livingSpace
                 + '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Apartment apartment = (Apartment) o;
-        return number == apartment.number
-                && livingSpace == apartment.livingSpace;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(number, livingSpace);
     }
 }

@@ -1,4 +1,4 @@
-package ru.job4j.serialization.json;
+package ru.job4j.io.serialization.json;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -10,8 +10,7 @@ public class Building {
     private int[] totalLivingSpace;
     private Apartment forExample;
 
-    public Building(boolean isNewBuilding, int floor,
-                    String address, int[] totalLivingSpace, Apartment forExample) {
+    public Building(boolean isNewBuilding, int floor, String address, int[] totalLivingSpace, Apartment forExample) {
         this.isNewBuilding = isNewBuilding;
         this.floor = floor;
         this.address = address;
@@ -75,11 +74,11 @@ public class Building {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Building building = (Building) o;
-        return isNewBuilding == building.isNewBuilding
-                && floor == building.floor
-                && Objects.equals(address, building.address)
-                && Arrays.equals(totalLivingSpace, building.totalLivingSpace)
-                && Objects.equals(forExample, building.forExample);
+        return isNewBuilding == building.isNewBuilding &&
+                floor == building.floor &&
+                Objects.equals(address, building.address) &&
+                Arrays.equals(totalLivingSpace, building.totalLivingSpace) &&
+                Objects.equals(forExample, building.forExample);
     }
 
     @Override
