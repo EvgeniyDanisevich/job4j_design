@@ -1,17 +1,11 @@
 package ru.job4j.io;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class EchoServer {
-
-    private static final Logger LOG = LoggerFactory.getLogger(EchoServer.class.getName());
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         try (ServerSocket server = new ServerSocket(9000)) {
             while (!server.isClosed()) {
                 Socket socket = server.accept();
@@ -21,23 +15,13 @@ public class EchoServer {
                     String str;
                     while (!(str = in.readLine()).isEmpty()) {
                         System.out.println(str);
-                        if (str.contains("/?msg=Exit")) {
-                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                        if (str.contains("/?msg=Bye")) {
+                            out.write("HTTP/1.1 200 OK\r\n".getBytes());
                             server.close();
-                        }
-                        if (str.contains("/?msg=Hello")) {
-                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-                            out.write("Hello, dear friend.".getBytes());
-                        }
-                        if ((str.contains("/?msg=")) && !(str.contains("/?msg=Hello") || str.contains("/?msg=Exit"))) {
-                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-                            out.write("What?".getBytes());
                         }
                     }
                 }
             }
-        } catch (Exception e) {
-            LOG.error("IO Log exception", e);
         }
     }
 }
