@@ -48,7 +48,6 @@ public class Person {
                 + '}';
     }
 
-
     public static void main(String[] args) {
 
         /* JSONObject из json-строки строки */

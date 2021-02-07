@@ -7,11 +7,11 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class ConsoleChat {
-    private final String path;
-    private final String botAnswers;
     private static final String OUT = "закончить";
     private static final String STOP = "стоп";
     private static final String CONTINUE = "продолжить";
+    private final String path;
+    private final String botAnswers;
 
     public ConsoleChat(String path, String botAnswers) {
         this.path = path;
@@ -37,7 +37,8 @@ public class ConsoleChat {
             }
             userAnswer = scanner.nextLine();
         }
-        try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(path)))) {
+        try (PrintWriter out = new PrintWriter(
+                new BufferedOutputStream(new FileOutputStream(path)))) {
             outPut.forEach(out::println);
         } catch (Exception e) {
             e.printStackTrace();

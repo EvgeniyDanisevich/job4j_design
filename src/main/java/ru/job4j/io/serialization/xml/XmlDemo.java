@@ -10,7 +10,8 @@ import java.io.StringWriter;
 
 public class XmlDemo {
     public static void main(String[] args) throws Exception {
-        BuildingXml building = new BuildingXml(true, 1, "St.Petersburg", new int[]{50, 60, 70}, new ApartmentXml(2, 60));
+        BuildingXml building = new BuildingXml(
+                true, 1, "St.Petersburg", new int[]{50, 60, 70}, new ApartmentXml(2, 60));
         JAXBContext context = JAXBContext.newInstance(BuildingXml.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);

@@ -4,7 +4,6 @@ import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 import java.util.Objects;
 
-
 @XmlRootElement(name = "building")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BuildingXml {
@@ -38,8 +37,8 @@ public class BuildingXml {
 
     @Override
     public String toString() {
-        return "Home{" +
-                "isNewBuilding=" + isNewBuilding
+        return "Home{"
+                + "isNewBuilding=" + isNewBuilding
                 + ", floor=" + floor
                 + ", address='" + address + '\''
                 + ", totalLivingSpace=" + Arrays.toString(totalLivingSpace)
@@ -49,8 +48,12 @@ public class BuildingXml {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         BuildingXml building = (BuildingXml) o;
         return isNewBuilding == building.isNewBuilding
                 && floor == building.floor

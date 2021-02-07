@@ -10,7 +10,8 @@ public class Building {
     private int[] totalLivingSpace;
     private Apartment forExample;
 
-    public Building(boolean isNewBuilding, int floor, String address, int[] totalLivingSpace, Apartment forExample) {
+    public Building(boolean isNewBuilding, int floor,
+                    String address, int[] totalLivingSpace, Apartment forExample) {
         this.isNewBuilding = isNewBuilding;
         this.floor = floor;
         this.address = address;
@@ -60,8 +61,8 @@ public class Building {
 
     @Override
     public String toString() {
-        return "Home{" +
-                "isNewBuilding=" + isNewBuilding
+        return "Home{"
+                + "isNewBuilding=" + isNewBuilding
                 + ", floor=" + floor
                 + ", address='" + address + '\''
                 + ", totalLivingSpace=" + Arrays.toString(totalLivingSpace)
@@ -71,14 +72,18 @@ public class Building {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Building building = (Building) o;
-        return isNewBuilding == building.isNewBuilding &&
-                floor == building.floor &&
-                Objects.equals(address, building.address) &&
-                Arrays.equals(totalLivingSpace, building.totalLivingSpace) &&
-                Objects.equals(forExample, building.forExample);
+        return isNewBuilding == building.isNewBuilding
+                && floor == building.floor
+                && Objects.equals(address, building.address)
+                && Arrays.equals(totalLivingSpace, building.totalLivingSpace)
+                && Objects.equals(forExample, building.forExample);
     }
 
     @Override

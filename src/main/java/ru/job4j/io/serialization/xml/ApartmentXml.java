@@ -32,8 +32,12 @@ public class ApartmentXml {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ApartmentXml apartment = (ApartmentXml) o;
         return number == apartment.number
                 && livingSpace == apartment.livingSpace;

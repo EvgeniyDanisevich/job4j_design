@@ -39,8 +39,6 @@ public class Person {
                 + '}';
     }
 
-
-
     public static void main(String[] args) throws JAXBException {
 
         final Person person = new Person(false, 30, new Contact("11-111"), "Worker", "Married");
