@@ -1,11 +1,17 @@
 package ru.job4j.io;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class EchoServer {
-    public static void main(String[] args) throws IOException {
+
+    private static final Logger LOG = LoggerFactory.getLogger(EchoServer.class.getName());
+
+    public static void main(String[] args) {
         try (ServerSocket server = new ServerSocket(9000)) {
             while (!server.isClosed()) {
                 Socket socket = server.accept();
@@ -15,13 +21,21 @@ public class EchoServer {
                     String str;
                     while (!(str = in.readLine()).isEmpty()) {
                         System.out.println(str);
-                        if (str.contains("/?msg=Bye")) {
-                            out.write("HTTP/1.1 200 OK\r\n".getBytes());
+                        if (str.contains("/?msg=Exit")) {
+                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                             server.close();
+                        } else if (str.contains("/?msg=Hello")) {
+                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                            out.write("Hello, dear friend.".getBytes());
+                        } else if (str.contains("GET")) {
+                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                            out.write("What?".getBytes());
                         }
                     }
                 }
             }
+        } catch (Exception e) {
+            LOG.error("IO Log exception", e);
         }
     }
 }
