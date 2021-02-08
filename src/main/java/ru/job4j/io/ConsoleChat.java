@@ -20,8 +20,10 @@ public class ConsoleChat {
 
     public void run() {
         List<String> outPut = new ArrayList<>();
+        List<String> botPhrases = getBotAnswer();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите фразу:\r");
+        String botAnswer;
         String userAnswer = scanner.nextLine();
         boolean isStopped = false;
         while (!userAnswer.equals(OUT)) {
@@ -33,10 +35,13 @@ public class ConsoleChat {
                 isStopped = false;
             }
             if (!isStopped) {
-                outPut.add(getBotAnswer());
+                botAnswer = botPhrases.get(new Random().nextInt(botPhrases.size()));
+                System.out.println(botAnswer);
+                outPut.add(botAnswer);
             }
             userAnswer = scanner.nextLine();
         }
+        outPut.add(userAnswer);
         try (PrintWriter out = new PrintWriter(
                 new BufferedOutputStream(new FileOutputStream(path)))) {
             outPut.forEach(out::println);
@@ -45,18 +50,15 @@ public class ConsoleChat {
         }
     }
 
-    private String getBotAnswer() {
-        String answer = "";
+    private List<String> getBotAnswer() {
+        List<String> list = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(botAnswers))) {
-            List<String> list = new ArrayList<>();
             bufferedReader.lines().forEach(list::add);
-            answer = list.get(new Random().nextInt(list.size()));
-            System.out.println(answer);
-            return answer;
+            return list;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return answer;
+        return list;
     }
 
     public static void main(String[] args) {
