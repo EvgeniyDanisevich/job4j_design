@@ -10,17 +10,15 @@ import java.util.function.Predicate;
 public class FindFile {
 
     public void writeLogFile(List<Path> sources, File target) {
-        try (FileWriter fileWriter = new FileWriter(target)) {
-            for (Path path : sources) {
-                fileWriter.write(path.toString() + System.lineSeparator());
-            }
+        try (PrintWriter printWriter = new PrintWriter(target)) {
+            sources.forEach(printWriter::println);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private static Predicate<String> predicateDefinition(String type, String fileName) {
-        Predicate<String> predicate = null;
+        Predicate<String> predicate = s -> false;
         if (type.equals("name")) {
             predicate = s -> s.contains(fileName);
         }
@@ -43,6 +41,6 @@ public class FindFile {
 
         // Запись путей в файл
            new FindFile().writeLogFile(savePaths.getPaths(),
-                   new File(argsSearch.directory() + "\\" + argsSearch.logFile()));
+                   new File(argsSearch.directory() + File.separator + argsSearch.logFile()));
     }
 }
