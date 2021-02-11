@@ -26,8 +26,8 @@ insert into products(name, type_id, expired_date, price) values ('Рокфор',
 insert into products(name, type_id, expired_date, price) values ('Швейцарский', 3, '2021-08-01', 1500);
 
 select * from products where type_id = (select id from type where name = 'СЫР');
-select * from products where lower(name) = 'мороженное';
-select * from products where expired_date < current_date + interval '1 month';
+select * from products where lower (name) like '%мороженное%';
+select * from products where date_part ('month', expired_date) = date_part ('month', (current_date + interval '1 month'));
 select * from products where price = (select max(price) from products);
 select count(*) from products where type_id = (select id from type where name = 'ХЛЕБ');
 select * from products where type_id in (select id from type where name = 'СЫР' or name ='МОЛОКО');
