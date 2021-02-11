@@ -23,3 +23,4 @@ insert into patients(name, id_department) values ('Джеки Чан', 3);
 select pp.name, p.name from departments as pp join patients as p on pp.id = p.id_department;
 select pp.doctor, pp.name, p.name from departments as pp join patients as p on pp.id = p.id_department;
 select pp.doctor as Доктор, pp.name as Отеделение, p.name as Пациент from departments as pp join patients as p on pp.id = p.id_department;
+create database lesson_2;
