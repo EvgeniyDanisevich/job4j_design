@@ -18,16 +18,20 @@ public class CacheModel {
     public String get(String key) {
         String text = data.get(key) == null ? null : data.get(key).get();
         if (text == null) {
-            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(key))) {
-                StringJoiner stringJoiner = new StringJoiner(System.lineSeparator());
-                bufferedReader.lines().forEach(stringJoiner::add);
-                text = stringJoiner.toString();
-                SoftReference<String> softReference = new SoftReference<>(stringJoiner.toString());
-                data.put(key, softReference);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            StringJoiner stringJoiner = new StringJoiner(System.lineSeparator());
+            download(stringJoiner, key);
+            text = stringJoiner.toString();
         }
         return text;
+    }
+
+    private void download(StringJoiner stringJoiner, String key) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(key))) {
+            bufferedReader.lines().forEach(stringJoiner::add);
+            SoftReference<String> softReference = new SoftReference<>(stringJoiner.toString());
+            data.put(key, softReference);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
