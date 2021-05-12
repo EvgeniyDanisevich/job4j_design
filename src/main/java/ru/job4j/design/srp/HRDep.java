@@ -8,14 +8,7 @@ public class HRDep implements Department {
         StringBuilder text = new StringBuilder();
         text.append("Name; Salary")
                 .append(System.lineSeparator());
-        employees.sort((o1, o2) -> {
-            if (o1.getSalary() < o2.getSalary()) {
-                return 1;
-            } else if (o1.getSalary() > o2.getSalary()) {
-                return -1;
-            }
-            return 0;
-        });
+        employees.sort((o1, o2) -> Double.compare(o2.getSalary(), o1.getSalary()));
         for (Employee employee : employees) {
             text.append(employee.getName()).append(";")
                     .append(employee.getSalary())
