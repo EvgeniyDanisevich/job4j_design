@@ -15,4 +15,19 @@ public class Shop implements Storage {
     public List<Food> getFood() {
         return foods;
     }
+
+    @Override
+    public boolean accept(Food food) {
+        boolean isAccept = false;
+        if (percent(food.getExpiryDate(), food.getCreateDate()) >= 25.0
+            && percent(food.getExpiryDate(), food.getCreateDate()) <= 75.0) {
+            isAccept = true;
+        } else if (percent(food.getExpiryDate(), food.getCreateDate()) > 75
+            && percent(food.getExpiryDate(), food.getCreateDate()) < 100) {
+            food.setPrice(food.getPrice() - food.getDiscount());
+            food.setName(food.getName() + " со скидкой");
+            isAccept = true;
+        }
+        return isAccept;
+    }
 }

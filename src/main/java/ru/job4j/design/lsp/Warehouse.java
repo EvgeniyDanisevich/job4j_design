@@ -15,4 +15,13 @@ public class Warehouse implements Storage {
     public List<Food> getFood() {
         return foods;
     }
+
+    @Override
+    public boolean accept(Food food) {
+        boolean isAccept = false;
+        if (percent(food.getExpiryDate(), food.getCreateDate()) < 25.0) {
+            isAccept = true;
+        }
+        return isAccept;
+    }
 }

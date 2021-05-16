@@ -1,13 +1,17 @@
 package ru.job4j.design.lsp;
 
-public class ControlQuality {
-    private final Storage storage;
+import java.util.List;
 
-    public ControlQuality(Storage storage) {
-        this.storage = storage;
+public class ControlQuality {
+    private final List<Storage> storageList;
+
+    public ControlQuality(List<Storage> storageList) {
+        this.storageList = storageList;
     }
 
-    public void putStorage(Food food) {
-        storage.put(food);
+    public void putToStorage(Food food) {
+        storageList.stream()
+                .filter(storage -> storage.accept(food))
+                .forEach(storage -> storage.put(food));
     }
 }
