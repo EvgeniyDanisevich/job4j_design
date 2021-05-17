@@ -1,7 +1,6 @@
-package ru.job4j.design.lsp;
+package ru.job4j.design.lsp.store;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Milk extends Food {
     public Milk(String name, LocalDate expiryDate, LocalDate createDate, int price, int discount) {

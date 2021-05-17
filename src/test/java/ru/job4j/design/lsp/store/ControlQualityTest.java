@@ -1,4 +1,4 @@
-package ru.job4j.design.lsp;
+package ru.job4j.design.lsp.store;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,15 +12,15 @@ public class ControlQualityTest {
     private final List<Food> foodList = List.of(
             new Bread(
                     "Черный хлеб",
-                    LocalDate.of(2021, 5, 22),
-                    LocalDate.of(2021, 5, 15),
+                    LocalDate.of(2021, 5, 23),
+                    LocalDate.of(2021, 5, 16),
                     100,
                     20
             ),
             new Bread(
                     "Белый хлеб",
-                    LocalDate.of(2021, 5, 23),
-                    LocalDate.of(2021, 5, 15),
+                    LocalDate.of(2021, 5, 24),
+                    LocalDate.of(2021, 5, 16),
                     150,
                     10
             ),
