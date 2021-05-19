@@ -26,8 +26,8 @@ public class ParkingServiceTest {
 
     @Test
     public void whenAddAllAuto() {
-        Park truckPark = new TruckPark(9);
         Park carPark = new CarPark(5);
+        Park truckPark = new TruckPark(9);
         List<Park> parkList = new ArrayList<>();
         parkList.add(truckPark);
         parkList.add(carPark);
@@ -39,8 +39,8 @@ public class ParkingServiceTest {
 
     @Test
     public void whenAddTruckAuto() {
-        Park truckPark = new TruckPark(9);
         Park carPark = new CarPark(5);
+        Park truckPark = new TruckPark(9);
         List<Park> parkList = new ArrayList<>();
         parkList.add(truckPark);
         parkList.add(carPark);
@@ -52,8 +52,8 @@ public class ParkingServiceTest {
 
     @Test
     public void whenAddCarAuto() {
-        Park truckPark = new TruckPark(9);
         Park carPark = new CarPark(5);
+        Park truckPark = new TruckPark(9);
         List<Park> parkList = new ArrayList<>();
         parkList.add(truckPark);
         parkList.add(carPark);
@@ -65,8 +65,8 @@ public class ParkingServiceTest {
 
     @Test
     public void whenOutTwoCarAndAddTruck() {
-        Park truckPark = new TruckPark(9);
         Park carPark = new CarPark(5);
+        Park truckPark = new TruckPark(9);
         List<Park> parkList = new ArrayList<>();
         parkList.add(truckPark);
         parkList.add(carPark);

@@ -14,15 +14,18 @@ public class CarPark implements Park {
     }
 
     public List<Auto> getCarList() {
-        return carList;
+        return new ArrayList<>(carList);
     }
 
     public List<Auto> getTruckList() {
-        return truckList;
+        return new ArrayList<>(truckList);
     }
 
     @Override
     public void put(Auto auto) {
+        if (!accept(auto)) {
+            throw new IllegalArgumentException();
+        }
         if (auto.getSize() == 1) {
             carList.add(auto);
             capacity++;
@@ -56,5 +59,10 @@ public class CarPark implements Park {
         autoList.addAll(carList);
         autoList.addAll(truckList);
         return autoList;
+    }
+
+    @Override
+    public boolean priority(Auto auto) {
+        return auto.getSize() == 1;
     }
 }

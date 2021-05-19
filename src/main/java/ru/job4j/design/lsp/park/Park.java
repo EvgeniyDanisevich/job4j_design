@@ -10,4 +10,6 @@ public interface Park {
     boolean accept(Auto auto);
 
     List<Auto> getAutos();
+
+    boolean priority(Auto auto);
 }

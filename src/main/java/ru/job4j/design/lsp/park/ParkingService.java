@@ -11,7 +11,11 @@ public class ParkingService {
 
     public void addAuto(Auto auto) {
         for (Park park : parkList) {
-            if (park.accept(auto)) {
+            if (park.priority(auto) && park.accept(auto)) {
+                park.put(auto);
+                break;
+            }
+            if (!park.priority(auto) && park.accept(auto)) {
                 park.put(auto);
                 break;
             }

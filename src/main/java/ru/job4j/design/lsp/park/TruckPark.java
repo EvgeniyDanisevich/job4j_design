@@ -14,6 +14,9 @@ public class TruckPark implements Park {
 
     @Override
     public void put(Auto auto) {
+        if (!accept(auto)) {
+            throw new IllegalArgumentException();
+        }
         autoList.add(auto);
         capacity += auto.getSize();
     }
@@ -34,6 +37,11 @@ public class TruckPark implements Park {
 
     @Override
     public List<Auto> getAutos() {
-        return autoList;
+        return new ArrayList<>(autoList);
+    }
+
+    @Override
+    public boolean priority(Auto auto) {
+        return auto.getSize() > 1;
     }
 }
