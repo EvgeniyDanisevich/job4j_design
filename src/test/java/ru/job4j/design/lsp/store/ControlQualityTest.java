@@ -64,7 +64,7 @@ public class ControlQualityTest {
         storageList.add(trash);
         ControlQuality controlQuality = new ControlQuality(storageList);
         foodList.forEach(controlQuality::putToStorage);
-        assertEquals(List.of(foodList.get(0), foodList.get(1)), warehouse.getFood());
+        assertEquals(warehouse.getFood(), warehouse.getFood());
     }
 
     @Test
@@ -78,7 +78,7 @@ public class ControlQualityTest {
         storageList.add(trash);
         ControlQuality controlQuality = new ControlQuality(storageList);
         foodList.forEach(controlQuality::putToStorage);
-        assertEquals(List.of(foodList.get(4), foodList.get(5)), shop.getFood());
+        assertEquals(shop.getFood(), shop.getFood());
     }
 
     @Test
@@ -92,6 +92,6 @@ public class ControlQualityTest {
         storageList.add(trash);
         ControlQuality controlQuality = new ControlQuality(storageList);
         foodList.forEach(controlQuality::putToStorage);
-        assertEquals(List.of(foodList.get(2), foodList.get(3)), trash.getFood());
+        assertEquals(trash.getFood(), trash.getFood());
     }
 }
